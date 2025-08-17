@@ -295,11 +295,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar efeitos visuais
     addVisualEffects();
     
+    // Partículas desabilitadas para melhor performance e experiência visual
+    /*
     // Adicionar efeito de pulsação nas partículas
     const particles = document.querySelectorAll('.particle');
     particles.forEach((particle, index) => {
         particle.style.animationDelay = `${index * 1.2}s`;
     });
+    */
 });
 
 // Função para análise avançada de senha (funcionalidade extra)
