@@ -1,3 +1,208 @@
+// Animações de Fundo Estilo Hacker
+// Criar animações de hacker no fundo
+function createHackerAnimations() {
+    createMatrixRain();
+    createFloatingCode();
+    createHackerTerminal();
+    createGlitchEffect();
+}
+
+// Matrix Rain Effect Dinâmico
+function createMatrixRain() {
+    const matrixContainer = document.querySelector('.matrix-rain');
+    if (!matrixContainer) return;
+    
+    const characters = '01';
+    const columns = Math.floor(window.innerWidth / 20);
+    
+    // Limpar conteúdo anterior
+    matrixContainer.innerHTML = '';
+    
+    for (let i = 0; i < columns; i++) {
+        const column = document.createElement('div');
+        column.className = 'matrix-column';
+        column.style.cssText = `
+            position: absolute;
+            left: ${(i * 20)}px;
+            top: 0;
+            width: 20px;
+            height: 100%;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            color: rgba(34, 197, 94, 0.3);
+            text-align: center;
+            animation: matrix-drop ${3 + Math.random() * 3}s linear infinite;
+            animation-delay: ${Math.random() * 5}s;
+        `;
+        
+        // Gerar caracteres aleatórios
+        let columnText = '';
+        for (let j = 0; j < 50; j++) {
+            columnText += characters[Math.floor(Math.random() * characters.length)] + '<br>';
+        }
+        column.innerHTML = columnText;
+        
+        matrixContainer.appendChild(column);
+    }
+    
+    // Adicionar CSS para a animação se não existir
+    if (!document.querySelector('#matrix-drop-style')) {
+        const style = document.createElement('style');
+        style.id = 'matrix-drop-style';
+        style.textContent = `
+            @keyframes matrix-drop {
+                0% { transform: translateY(-100%); opacity: 0; }
+                10% { opacity: 1; }
+                90% { opacity: 1; }
+                100% { transform: translateY(100vh); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+// Código Flutuante
+function createFloatingCode() {
+    const codeSnippets = [
+        'def check_password():', 'if len(password) >= 8:', 'return "strong"',
+        'import hashlib', 'encrypt(data)', 'for i in range(100):',
+        'print("HACKING...")', 'access_granted = True', 'system("hack.exe")',
+        '<?php echo "secure"; ?>', 'SELECT * FROM users', 'netstat -an',
+        'nmap -sS target', 'wireshark capture', 'john --crack hash'
+    ];
+    
+    const particlesContainer = document.querySelector('.hacker-particles');
+    if (!particlesContainer) return;
+    
+    setInterval(() => {
+        if (document.querySelectorAll('.floating-code').length < (window.innerWidth <= 768 ? 5 : 10)) {
+            const codeElement = document.createElement('div');
+            codeElement.className = 'floating-code';
+            codeElement.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+            
+            codeElement.style.cssText = `
+                position: absolute;
+                left: ${Math.random() * 100}%;
+                top: 100%;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: ${window.innerWidth <= 768 ? 8 + Math.random() * 4 : 10 + Math.random() * 6}px;
+                color: rgba(34, 197, 94, ${0.1 + Math.random() * 0.3});
+                pointer-events: none;
+                white-space: nowrap;
+                animation: code-float ${5 + Math.random() * 5}s linear;
+                transform: rotate(${-15 + Math.random() * 30}deg);
+                z-index: -1;
+            `;
+            
+            particlesContainer.appendChild(codeElement);
+            
+            setTimeout(() => {
+                if (codeElement.parentNode) {
+                    codeElement.parentNode.removeChild(codeElement);
+                }
+            }, 10000);
+        }
+    }, window.innerWidth <= 768 ? 4000 : 2000);
+    
+    if (!document.querySelector('#code-float-style')) {
+        const style = document.createElement('style');
+        style.id = 'code-float-style';
+        style.textContent = `
+            @keyframes code-float {
+                0% { transform: translateY(0) rotate(var(--rotation, 0deg)); opacity: 0; }
+                10% { opacity: 1; }
+                90% { opacity: 1; }
+                100% { transform: translateY(-100vh) rotate(var(--rotation, 0deg)); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+// Terminal Hacker Simulado
+function createHackerTerminal() {
+    const terminalCommands = [
+        'root@hacker:~# nmap -sS 192.168.1.1',
+        'root@hacker:~# hydra -l admin -P pass.txt',
+        'root@hacker:~# john --wordlist=rockyou.txt',
+        'root@hacker:~# sqlmap -u target --dbs',
+        'root@hacker:~# metasploit loading...',
+        'root@hacker:~# burp suite enabled',
+        'root@hacker:~# wireshark capturing...',
+        'root@hacker:~# aircrack-ng wordlist.txt'
+    ];
+    
+    const codeLines = document.querySelector('.code-lines');
+    if (!codeLines) return;
+    
+    const terminal = document.createElement('div');
+    terminal.className = 'hacker-terminal';
+    terminal.style.cssText = `
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        max-height: ${window.innerWidth <= 768 ? '60px' : '80px'};
+        background: rgba(0, 0, 0, 0.8);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        border-radius: 5px;
+        padding: ${window.innerWidth <= 768 ? '8px' : '10px'};
+        font-family: 'JetBrains Mono', monospace;
+        font-size: ${window.innerWidth <= 768 ? '8px' : '10px'};
+        color: #22c55e;
+        overflow: hidden;
+        opacity: 0.7;
+        backdrop-filter: blur(5px);
+        z-index: 10;
+    `;
+    
+    document.body.appendChild(terminal);
+    
+    let commandIndex = 0;
+    setInterval(() => {
+        const command = terminalCommands[commandIndex % terminalCommands.length];
+        terminal.innerHTML += `<div style="margin: 2px 0;">${command}</div>`;
+        
+        const lines = terminal.children;
+        if (lines.length > (window.innerWidth <= 768 ? 4 : 6)) {
+            terminal.removeChild(lines[0]);
+        }
+        
+        commandIndex++;
+    }, 4000);
+}
+
+// Efeito Glitch
+function createGlitchEffect() {
+    const container = document.querySelector('.container');
+    if (!container) return;
+    
+    setInterval(() => {
+        if (Math.random() > 0.97) {
+            container.style.animation = 'glitch 0.1s';
+            setTimeout(() => {
+                container.style.animation = 'fadeInUp 0.8s ease-out';
+            }, 100);
+        }
+    }, 2000);
+    
+    if (!document.querySelector('#glitch-style')) {
+        const style = document.createElement('style');
+        style.id = 'glitch-style';
+        style.textContent = `
+            @keyframes glitch {
+                0% { transform: translate(0); }
+                20% { transform: translate(-2px, 2px); }
+                40% { transform: translate(-2px, -2px); }
+                60% { transform: translate(2px, 2px); }
+                80% { transform: translate(2px, -2px); }
+                100% { transform: translate(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
 // Configuração dos critérios de segurança
 const passwordCriteria = {
     length: {
@@ -608,3 +813,25 @@ updateStrengthIndicator = function(score, metCriteria) {
 // Log de atividade (para desenvolvimento)
 console.log('Password Strength Checker carregado com sucesso! 🔒');
 console.log('Dica: Pressione F2 para gerar uma senha segura automaticamente');
+
+// Inicializar animações de hacker quando a página carregar
+document.addEventListener('DOMContentLoaded', function() {
+    // Aguardar um pouco para garantir que todos os elementos estejam prontos
+    setTimeout(() => {
+        console.log('Iniciando animações de hacker...');
+        createHackerAnimations();
+    }, 1000);
+    
+    // Redimensionar matrix rain quando a janela mudar de tamanho
+    window.addEventListener('resize', () => {
+        clearTimeout(window.resizeTimer);
+        window.resizeTimer = setTimeout(() => {
+            createMatrixRain();
+        }, 300);
+    });
+    
+    // Otimizações para performance mobile
+    if (window.innerWidth <= 768) {
+        console.log('Modo mobile detectado - otimizações ativadas');
+    }
+});
