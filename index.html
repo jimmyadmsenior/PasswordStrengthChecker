@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Partículas flutuantes -->
+    <div class="floating-particles">
+        <div class="particle">🔒</div>
+        <div class="particle">🛡️</div>
+        <div class="particle">🔐</div>
+        <div class="particle">⚡</div>
+        <div class="particle">🔑</div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Password Strength Checker</h1>
+            <p>Teste a força da sua senha e aprenda como criar senhas mais seguras</p>
+        </div>
+
+        <div class="password-checker">
+            <div class="input-group">
+                <label for="password">Digite sua senha:</label>
+                <div class="password-input-wrapper">
+                    <input type="password" id="password" placeholder="Digite sua senha aqui...">
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">
+                        <span id="eye-icon">👁️</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="strength-indicator">
+                <div class="strength-bar">
+                    <div class="strength-fill" id="strengthFill"></div>
+                </div>
+                <div class="strength-text" id="strengthText">Digite uma senha para começar</div>
+            </div>
+
+            <div class="criteria-list">
+                <h3>Critérios de Segurança:</h3>
+                <div class="criterion" id="length">
+                    <span class="icon">❌</span>
+                    <span class="text">Pelo menos 8 caracteres</span>
+                </div>
+                <div class="criterion" id="lowercase">
+                    <span class="icon">❌</span>
+                    <span class="text">Pelo menos uma letra minúscula</span>
+                </div>
+                <div class="criterion" id="uppercase">
+                    <span class="icon">❌</span>
+                    <span class="text">Pelo menos uma letra maiúscula</span>
+                </div>
+                <div class="criterion" id="numbers">
+                    <span class="icon">❌</span>
+                    <span class="text">Pelo menos um número</span>
+                </div>
+                <div class="criterion" id="special">
+                    <span class="icon">❌</span>
+                    <span class="text">Pelo menos um caractere especial (!@#$%^&*)</span>
+                </div>
+            </div>
+
+            <div class="feedback" id="feedback">
+                <h3>Dicas para uma senha mais forte:</h3>
+                <ul id="tips">
+                    <li>Use pelo menos 8 caracteres</li>
+                    <li>Misture letras maiúsculas e minúsculas</li>
+                    <li>Inclua números</li>
+                    <li>Use caracteres especiais</li>
+                    <li>Evite informações pessoais</li>
+                    <li>Não use senhas comuns ou sequenciais</li>
+                </ul>
+            </div>
+
+            <div class="examples" id="examples">
+                <h3>Exemplos:</h3>
+                <div class="example-item weak">
+                    <div class="example-password">
+                        <code>12345678</code>
+                        <span class="lock">🔓</span>
+                    </div>
+                    <div class="example-strength weak">Fraca</div>
+                </div>
+                <div class="example-item strong">
+                    <div class="example-password">
+                        <code>PxH1#n!8</code>
+                        <span class="lock">🔒</span>
+                    </div>
+                    <div class="example-strength strong">Forte</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>⚠️ Nunca compartilhe suas senhas reais. Este é apenas um verificador educacional.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
