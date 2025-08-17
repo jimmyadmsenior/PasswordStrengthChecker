@@ -4,11 +4,183 @@
     box-sizing: border-box;
 }
 
+/* Animações de Fundo Estilo Hacker */
+
+.hacker-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Matrix Rain Effect */
+.matrix-rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.matrix-rain::before {
+    content: '01001000 01000001 01000011 01001011 01000101 01010010 00100000 01010011 01000101 01000011 01010101 01010010 01001001 01010100 01011001 00001010 01000011 01011001 01000010 01000101 01010010 00100000 01010000 01000001 01010011 01010011 01010111 01001111 01010010 01000100 00001010 01000100 01000001 01010100 01000001 00100000 01000101 01001110 01000011 01010010 01011001 01010000 01010100 01001001 01001111 01001110 00001010';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    color: rgba(34, 197, 94, 0.15);
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.2;
+    animation: matrix-fall 20s linear infinite;
+    letter-spacing: 2px;
+}
+
+@keyframes matrix-fall {
+    0% { transform: translateY(-100%); opacity: 0; }
+    10% { opacity: 0.3; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Code Lines Animation */
+.code-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.code-lines::before,
+.code-lines::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(34, 197, 94, 0.8) 20%, 
+        rgba(34, 197, 94, 1) 50%, 
+        rgba(34, 197, 94, 0.8) 80%, 
+        transparent 100%);
+    animation: scan-line 4s linear infinite;
+}
+
+.code-lines::before {
+    top: 20%;
+    animation-delay: 0s;
+}
+
+.code-lines::after {
+    top: 80%;
+    animation-delay: 2s;
+}
+
+@keyframes scan-line {
+    0% { 
+        transform: translateX(-100%);
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+    }
+    100% { 
+        transform: translateX(100%);
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+    }
+}
+
+/* Scanning Lines Effect */
+.scanning-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(34, 197, 94, 0.03) 2px,
+        rgba(34, 197, 94, 0.03) 4px
+    );
+    animation: scan-flicker 0.1s linear infinite alternate;
+}
+
+@keyframes scan-flicker {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+/* Hacker Particles */
+.hacker-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hacker-particles::before,
+.hacker-particles::after {
+    content: '< /> { } [ ] # $ % & * + - = | \\ / ^ ~ ` @ ! ? . , ; : " \' ( )';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(34, 197, 94, 0.1);
+    white-space: pre-wrap;
+    word-spacing: 20px;
+    letter-spacing: 15px;
+    line-height: 3;
+    animation: particle-float 30s linear infinite;
+}
+
+.hacker-particles::after {
+    content: '01 10 11 00 10 01 11 00 01 10 11 00 10 01 11 00 01 10 11 00 10 01 11 00 01 10 11 00 10 01 11 00';
+    animation-delay: 15s;
+    animation-duration: 25s;
+    opacity: 0.8;
+}
+
+@keyframes particle-float {
+    0% { 
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 0.2; }
+    90% { opacity: 0.2; }
+    100% { 
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Pulse Effect */
+@keyframes hacker-pulse {
+    0%, 100% { 
+        background-color: rgba(15, 23, 42, 0.95);
+        box-shadow: 0 0 50px rgba(34, 197, 94, 0.1);
+    }
+    50% { 
+        background-color: rgba(15, 23, 42, 0.98);
+        box-shadow: 0 0 80px rgba(34, 197, 94, 0.2);
+    }
+}
+
 body {
     font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'Courier New', monospace;
     background: linear-gradient(-45deg, #0f172a, #1e293b, #334155, #475569);
     background-size: 400% 400%;
-    animation: gradient-shift 8s ease infinite;
+    animation: gradient-shift 8s ease infinite, hacker-pulse 6s ease-in-out infinite;
     min-height: 100vh;
     padding: 10px;
     color: #e2e8f0;
